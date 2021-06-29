@@ -7,7 +7,7 @@ include "../helpers/functions.php";
 // Array asociativo del JSON de categorias
 // $comentarios = getDataFromJSON('comentarios');
 // $productos = getDataFromJSON('productos');
-require __DIR__."/../helpers/connection.php";
+require_once __DIR__."/../../helpers/connection.php";
 // Array asociativo del JSON de marcas
 $sql = "SELECT C.*, P.name as product_name FROM comments C
 INNER JOIN products P on P.product_id = C.product_id WHERE P.deleted_at is NULL";
@@ -15,7 +15,7 @@ INNER JOIN products P on P.product_id = C.product_id WHERE P.deleted_at is NULL"
 $comments = $con->query($sql);
 
 if(!empty($_GET['del'])){
-    $sql = "UPDATE comments SET deleted_at = NOW() WHERE brand_id = ".$_GET['del'];
+    $sql = "UPDATE comments SET is_visible = 0 WHERE comment_id = ".$_GET['del'];
     $con->query($sql);
     // unset($comentarios[$_GET['del']]);
     // setDataJSON('comentarios', $comentarios);

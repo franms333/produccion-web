@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__."/../helpers/connection.php";
+require_once __DIR__."/../../helpers/connection.php";
 include "includes/header.php";
 include "../helpers/dataHelper.php";
 include "../helpers/functions.php";

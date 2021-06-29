@@ -4,11 +4,10 @@ include "includes/header.php";
 include "../helpers/dataHelper.php";
 include "../helpers/functions.php";
 
-require __DIR__."/../helpers/connection.php";
-// Array asociativo del JSON de marcas
+require_once __DIR__."/../../helpers/connection.php";
 $sql = "SELECT * FROM brands";
-
 $brands = $con->query($sql);
+
 if(!empty($_GET['del'])){
     $sql = "UPDATE brands SET deleted_at = NOW() WHERE brand_id = ".$_GET['del'];
     $con->query($sql);
