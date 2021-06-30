@@ -5,12 +5,15 @@ include "../helpers/dataHelper.php";
 include "../helpers/functions.php";
 
 require_once __DIR__."/../../helpers/connection.php";
-$sql = "SELECT * FROM brands";
-$brands = $con->query($sql);
+
+require_once __DIR__.'/../../DataAccess/BrandDAO.php';
+
+$brandDAO = new BrandDAO($con);
+
+$brands = $brandDAO->getAll();
 
 if(!empty($_GET['del'])){
-    $sql = "UPDATE brands SET deleted_at = NOW() WHERE brand_id = ".$_GET['del'];
-    $con->query($sql);
+    $brandDAO->delete($_GET['del'], 'brand_id');
     redirect('marcas.php');
 }
 
@@ -35,15 +38,15 @@ if(!empty($_GET['del'])){
                         </thead>
                         <tbody>
                         <?php foreach($brands as $marca): ?>
-                            <?php if($marca['deleted_at'] == NULL): ?>
+                            <?php if($marca->getDeleted() == ""): ?>
                                 <tr>
-                                    <td><?php echo $marca['brand_id'] ?></td>
-                                    <td><?php echo $marca['name'] ?></td>
+                                    <td><?php echo $marca->getBrandID() ?></td>
+                                    <td><?php echo $marca->getNombre() ?></td>
                                     <td style="display: flex; justify-content: space-around; width: 115px;">
                                     <!-- boton de editar -->
-                                        <a class="btn btn-info" href="marca_add.php?id=<?php echo $marca['brand_id'] ?>"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-info" href="marca_add.php?id=<?php echo $marca->getBrandID() ?>"><i class="fas fa-edit"></i></a>
                                         <!-- boton de borrar -->
-                                        <a class="btn btn-danger" href="marcas.php?del=<?php echo $marca['brand_id'] ?>"><i class="fas fa-trash-alt"></i></a>
+                                        <a class="btn btn-danger" href="marcas.php?del=<?php echo $marca->getBrandID() ?>"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             <?php endif; ?>
