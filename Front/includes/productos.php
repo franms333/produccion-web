@@ -52,18 +52,19 @@ $products = $productB->getProducts();
                 </nav>
                 <!--End Nav Button  -->
             </div>
+            <!-- <button id="sort">Sort</button> -->
         </div>
         <!-- Nav Card -->
         <div class="tab-content" id="nav-tabContent">
             <!-- card one -->
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div class="row">
+                <div class="row" id="productsList">
 
                     <?php foreach($products as $producto){ ?>
                         
                         <?php if(
-                                ( isset($_GET['categoria']) && $producto->getCategoria() == $_GET['categoria'] ) &&
-                                ( isset($_GET['marca']) && $producto->getBrand() == $_GET['marca'] )
+                                ( isset($_GET['categoria']) && $producto->getCategoria()->getCategoryID() == $_GET['categoria'] ) &&
+                                ( isset($_GET['marca']) && $producto->getBrand() == $_GET['marca'])
                             ):
                         ?>
 
@@ -79,13 +80,13 @@ $products = $productB->getProducts();
                                         </div>
                                     </div>
                                     <div class="popular-caption">
-                                        <h3><a href="product_details.php?prodId=<?php echo $producto->getId()?>"><?php echo $producto->getNombre() ?></a></h3>
+                                        <h3 id="product"><a href="product_details.php?prodId=<?php echo $producto->getId() ?>"><?php echo $producto->getNombre() ?></a></h3>
                                         <span>$ <?php echo number_format($producto->getPrecio(), 2, ",", ".")  ?></span>
                                     </div>
                                 </div>
                             </div>
 
-                        <?php elseif( (isset($_GET['categoria']) && $producto->getCategoria() == $_GET['categoria']) && !isset($_GET['marca'])    ): ?>
+                        <?php elseif( (isset($_GET['categoria']) && $producto->getCategoria()->getCategoryID() == $_GET['categoria']) && !isset($_GET['marca'])    ): ?>
 
                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                                 <div class="single-popular-items mb-50 text-center">
@@ -99,7 +100,7 @@ $products = $productB->getProducts();
                                         </div>
                                     </div>
                                     <div class="popular-caption">
-                                        <h3><a href="product_details.php?prodId=<?php echo $producto->getId()?>"><?php echo $producto->getNombre() ?></a></h3>
+                                        <h3 id="product"><a href="product_details.php?prodId=<?php echo $producto->getId()?>"><?php echo $producto->getNombre() ?></a></h3>
                                         <span>$ <?php echo number_format($producto->getPrecio(), 2, ",", ".")  ?></span>
                                     </div>
                                 </div>
@@ -119,7 +120,7 @@ $products = $productB->getProducts();
                                         </div>
                                     </div>
                                     <div class="popular-caption">
-                                        <h3><a href="product_details.php?prodId=<?php echo $producto->getId()?>"><?php echo $producto->getNombre() ?></a></h3>
+                                        <h3 id="product"><a href="product_details.php?prodId=<?php echo $producto->getId()?>"><?php echo $producto->getNombre() ?></a></h3>
                                         <span>$ <?php echo number_format($producto->getPrecio(), 2, ",", ".")  ?></span>
                                     </div>
                                 </div>
@@ -139,7 +140,7 @@ $products = $productB->getProducts();
                                         </div>
                                     </div>
                                     <div class="popular-caption">
-                                        <h3><a href="product_details.php?prodId=<?php echo $producto->getId()?>"><?php echo $producto->getNombre() ?></a></h3>
+                                        <h3 id="product"><a href="product_details.php?prodId=<?php echo $producto->getId()?>"><?php echo $producto->getNombre() ?></a></h3>
                                         <span>$ <?php echo number_format($producto->getPrecio(), 2, ",", ".")  ?></span>
                                     </div>
                                 </div>
